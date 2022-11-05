@@ -1,0 +1,137 @@
+1 - Inclua suas próprias informações no departamento de tecnologia da empresa.
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("207", "Cleberson", "Henrique", "cleberson@gmail.com", "529.678.784", "2022-05-02", "9", "5000", "114", "6");
+
+
+2 - A administração está sem funcionários. Inclua os outros elementos do seu grupo do demoday no departamento de administração. 
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("208", "Leonardo", "Amorim", "leonardo@gmail.com", "854.978.714", "2022-05-30", "1", "5000", "100", "1");
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("209", "Maria", "Eduarda", "mariaeduarda@gmail.com", "998.778.514", "2022-05-30", "1", "5000", "100", "1");
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("210", "Maria", "Eduarda", "mariaeduarda@gmail.com", "998.778.514", "2022-05-30", "1", "5000", "100", "1");
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("211", "Daniela", "Pereira", "danielapereira@gmail.com", "550.271.514", "2022-05-30", "1", "5000", "100", "1");
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("212", "Gabriel", "Silva", "gabrielsilva@gmail.com", "222.278.704", "2022-05-30", "1", "5000", "100", "1");
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("213", "Bryan", "Belum", "bryanbelum@gmail.com", "111.778.704", "2022-05-30", "1", "5000", "100", "1");
+
+3 - Agora diga, quantos funcionários temos ao total na empresa? 
+select count(*) from funcionarios
+
+4 - Quantos funcionários temos no departamento de finanças?
+select count(*) from funcionarios where departamento_id = 10;
+
+5 - Qual a média salarial do departamento de tecnologia?
+select avg(salario) from funcionarios where departamento_id = 6;
+
+6 - Quanto o departamento de Transportes gasta em salários?  *
+select sum(salario) from funcionarios where departamento_id = 5;
+
+7 - Um novo departamento foi criado. O departamento de inovações. Ele será locado no Brasil. Por favor, adicione-o no banco de dados.  *
+insert into departamento (departamento_id,departamento_name, posicao_id) VALUES ("12", "Inovações", "5400");
+
+
+8 - Novos Funcionários!
+Três novos funcionários foram contratados para o departamento de inovações. Por favor, adicione-os: William Ferreira, casado com Inara Ferreira, possui um filho chamado Gabriel que tem 4 anos e adora brincar com cachorros. Ele será programador.Já a Fernanda Lima, que é casada com o Rodrigo, não possui filhos. Ela vai ocupar a posição de desenvolvedora.  Por último, a Gerente do departamento será Fabiana Raulino. Casada, duas filhas (Maya e Laura). 
+
+O salário de todos eles será a média salarial dos departamentos de administração e finanças. 
+
+Query com a resposta *
+Passo 01 - Descobrir o salário dos novos funcionários
+//O SALÁRIO DE TODOS ELES SERÁ A MÉDIA SALARIAL DOS DEPARTAMENTOS DE ADM E FINANÇAS
+ 
+select avg (salario) from funcionarios where departamento_id = 1; //4900
+select avg (salario) from funcionarios where departamento_id = 10; //8600
+
+//4900+8600= 13500
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Passo 02: Incluir novos funcionários no Banco de Dados e seus dependentes
+// Contratação do William Ferreira
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("214", "William", "Ferreira", "williamferreira@gmail.com", "101.751.704", "2022-05-30", "9", "13500", "100", "12");
+
+// Cadastro da Inara Ferreira, cônjuge de William Ferreira
+insert into dependentes (dependente_id, primeiro_nome, sobrenome, parentesco, funcionario_id)
+values ("34", "Inara", "Ferreira", "Cônjuge", "214");
+
+//Cadastro de Gabriel (cujo sobrenome não foi informado) filho(a) de William Ferreira
+insert into dependentes (dependente_id, primeiro_nome, sobrenome, parentesco, funcionario_id)
+values ("35", "Gabriel", "", "Filho(a)", "214");
+
+// Contratação de Fernanda Lima
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("215", "Fernanda", "Lima", "fernandalima@gmail.com", "958.547.789", "2022-05-30", "9", "13500", "100", "12");
+
+// Cadastro de Rodrigo (cujo sobrenome não foi informado), é cônjuge de Fernanda Lima
+insert into dependentes (dependente_id, primeiro_nome, sobrenome, parentesco, funcionario_id)
+values ("36", "Rodrigo", "", "Cônjuge", "215");
+
+// Contratação de Fabiana Raulino
+
+INSERT INTO funcionarios (funcionario_id,primeiro_nome,sobrenome, email, telefone, dataContratacao, ocupacao_id, salario, gerente_id, departamento_id) 
+VALUES ("216", "Fabiana", "Raulino", "fabianaraulino@gmail.com", "125.987.789", "2022-04-30", "9", "13500", "100", "12");
+
+//Cadastro de Maya (Dependente de Fabiana Raulino)
+insert into dependentes (dependente_id, primeiro_nome, sobrenome, parentesco, funcionario_id)
+values ("37", "Maya", "", "Filho(a)", "216");
+
+//Cadastro de Laura (Dependente de Fabiana Raulino)
+insert into dependentes (dependente_id, primeiro_nome, sobrenome, parentesco, funcionario_id)
+values ("38", "Laura", "", "Filho(a)", "216");
+
+9 - Informe todas as regiões em que a empresa atua acompanhadas de seus países.  *
+SELECT paises.pais_name, regiao.regiao_name From paises INNER JOIN regiao On paises.regiao_id = regiao.regiao_id
+
+10 - Joe Sciarra é filho de quem? *
+SELECT dependentes.primeiro_nome, dependentes.sobrenome, funcionarios.primeiro_nome, funcionarios.sobrenome From dependentes INNER JOIN funcionarios 
+On dependentes.primeiro_nome = 'Joe' and dependentes.sobrenome = 'Sciarra' and funcionarios.sobrenome = dependentes.sobrenome
+Resposta: Ismael Sciarra
+
+11 - Jose Manuel possui filhos?  *
+SELECT dependentes.funcionario_id, dependentes.parentesco, funcionarios.funcionario_id, funcionarios.primeiro_nome From dependentes INNER JOIN funcionarios 
+On dependentes.funcionario_id = funcionarios.funcionario_id and funcionarios.primeiro_nome like '%Jose%'
+
+Resposta: Sim
+
+12 - Qual região possui mais países?  *
+SELECT paises.pais_name, regiao.regiao_name From paises INNER JOIN regiao On paises.regiao_id = regiao.regiao_id WHERE paises.regiao_id = 1
+
+Resposta: Europa
+
+13 - Exiba o nome cada funcionário acompanhado de seus dependentes.  *
+SELECT funcionarios.funcionario_id, funcionarios.primeiro_nome, funcionarios.sobrenome, dependentes.dependente_id, dependentes.primeiro_nome, dependentes.sobrenome From funcionarios
+INNER JOIN dependentes On dependentes.funcionario_id = funcionarios.funcionario_id
+
+14 - Karen Partners possui um cônjuge?  *
+SELECT funcionarios.funcionario_id, funcionarios.primeiro_nome, funcionarios.sobrenome, dependentes.parentesco, dependentes.primeiro_nome, dependentes.sobrenome From funcionarios INNER JOIN dependentes
+ On dependentes.parentesco like "%Cônjuge%" where funcionarios.primeiro_nome like "%Karen%" and funcionarios.sobrenome like "%Partners%" limit 1
+
+Resposta: Sim, Jennifer King
+
+15 - O ID da tabela de países não segue um padrão numérico. Na sua visão, qual o impacto disso no desenvolvimento do banco? *
+No planejamento do banco de dados é uma boa prática criamos um conjunto de regras para que o banco se torne saudável. Como o ID da tabela de países não segue um padrão numérico, podem ocorrer dúvidas entre a equipe de como ficará a organização das informações.
+
+17 - Atualize as informações na tabela para que seu departamento seja criado.  *
+insert into departamento (departamento_id, departamento_name, posicao_id) VALUES ('14', 'IA', '5600')
+
+
+
+
+
+
+
+
+
+
